@@ -1,24 +1,35 @@
 package br.com.json.controller;
 
-import br.com.xml.model.Host;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class JsonController {
+    private final String objectJson;
+    private final File file;
+    private Object objectXMLFilled = null;
 
-
-    JsonController(Object className, String pathXml) throws IOException {
-        Gson gson = new Gson();
-
-        Host hostXML = gson.fromJson(new FileReader("D:\\file.json"), Host.class);
+    public JsonController(Object objectXML, String pathXml) {
+        objectJson = objectXML.getClass().getCanonicalName();
+        file = new File(pathXml);
     }
 
 
-    public static void main(String args[]) throws IOException {
-        new JsonController(new Object(),"");
+    public Object instanceObjectParsed() {
+        try {
+            FileReader fileReader = new FileReader(file);
+            fileReader.close();
+            objectXMLFilled = new Gson().fromJson(fileReader, Class.forName(objectJson));
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return objectXMLFilled;
     }
 
 }

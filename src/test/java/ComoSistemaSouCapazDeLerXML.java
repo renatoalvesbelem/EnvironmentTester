@@ -9,7 +9,7 @@ import java.io.File;
 
 public class ComoSistemaSouCapazDeLerXML {
     private Host createXML, hostXML;
-    String absolutePath = "d://host.xml";
+    private final String absolutePath = "d://host.xml";
 
     @Before
     public void makeXMLWithValues() {
@@ -21,7 +21,7 @@ public class ComoSistemaSouCapazDeLerXML {
     }
 
     @Test
-    public void readAndInstanceateObject() {
+    public void readAndInstanceObject() {
         hostXML = (Host) new JaxbController(new Host(),absolutePath).instanceObjectParsed();
     }
 
@@ -30,7 +30,6 @@ public class ComoSistemaSouCapazDeLerXML {
         Assert.assertEquals(createXML.getHostName(), hostXML.getHostName());
         Assert.assertEquals(createXML.getName(), hostXML.getName());
         Assert.assertEquals(createXML.getPassword(), hostXML.getPassword());
-        new File(absolutePath).delete();
-        Assert.assertEquals(false, new File(absolutePath).exists());
+        Assert.assertEquals(true, new File(absolutePath).delete());
     }
 }

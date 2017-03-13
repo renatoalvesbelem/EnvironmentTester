@@ -6,10 +6,8 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 public class JaxbController {
-    private String objectXML;
-    private File file;
-    private JAXBContext jaxbContext;
-    private Unmarshaller jaxbUnmarshaller;
+    private final String objectXML;
+    private final File file;
     private Object objectXMLFilled = null;
 
     public JaxbController(Object className, String pathXml) {
@@ -18,10 +16,13 @@ public class JaxbController {
     }
 
     public Object instanceObjectParsed() {
+        JAXBContext jaxbContext;
+        Unmarshaller jaxbUnmatchable;
         try {
+
             jaxbContext = JAXBContext.newInstance(Class.forName(objectXML));
-            jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            objectXMLFilled = jaxbUnmarshaller.unmarshal(file);
+            jaxbUnmatchable = jaxbContext.createUnmarshaller();
+            objectXMLFilled = jaxbUnmatchable.unmarshal(file);
         } catch (JAXBException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

@@ -1,3 +1,4 @@
+import br.com.json.controller.JsonController;
 import br.com.xml.model.Host;
 import com.google.gson.Gson;
 import org.junit.After;
@@ -11,8 +12,7 @@ import java.io.IOException;
 
 public class ComoSistemaSouCapazDeLerJson {
     private Host createJson, hostJSON;
-    String absolutePath = "d://host.json";
-    Gson gson = new Gson();
+    private final String absolutePath = "d://host.json";
 
     @Before
     public void makeXMLWithValues() throws IOException {
@@ -20,25 +20,24 @@ public class ComoSistemaSouCapazDeLerJson {
         createJson.setHostName("192.168.225.140");
         createJson.setName("renato");
         createJson.setPassword("1234564");
-        String jsonInString = gson.toJson(createJson);
-        FileWriter    file =  new FileWriter(absolutePath,false);
-            file.write(jsonInString);
-    file.close();
+        String jsonInString = new Gson().toJson(createJson);
+        FileWriter file = new FileWriter(absolutePath, false);
+        file.write(jsonInString);
+        file.close();
+
     }
 
     @Test
-    public void readAndInstanceateObject() {
+    public void readAndInstanceObject() {
+        hostJSON = (Host) new JsonController(new Host(), absolutePath).instanceObjectParsed();
 
-        String jsonInString = gson.toJson(createJson);
-        System.out.print(jsonInString);
     }
 
     @After
     public void validateValues() {
-//        Assert.assertEquals(createXML.getHostName(), hostXML.getHostName());
-//        Assert.assertEquals(createXML.getName(), hostXML.getName());
-//        Assert.assertEquals(createXML.getPassword(), hostXML.getPassword());
-//        new File(absolutePath).delete();
-//        Assert.assertEquals(false, new File(absolutePath).exists());*/
+        Assert.assertEquals(createJson.getHostName(), hostJSON.getHostName());
+        Assert.assertEquals(createJson.getName(), hostJSON.getName());
+        Assert.assertEquals(createJson.getPassword(), hostJSON.getPassword());
+        Assert.assertEquals(true, new File(absolutePath).delete() );
     }
 }
