@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,10 +39,9 @@ public class ComoSistemaSouCapazDeLerXMLComplexo {
         hostServer.setHostName("192.168.225.0");
         hostServer.setName("renatohost");
         hostServer.setPassword("123");
+        hostServer.setDatabase(createXML);
 
-        createXML.setHostServerApplication(hostServer);
-
-        new XMLCreator().createXML(createXML);
+        new XMLCreator().createXML(hostServer);
     }
 
     @Test
