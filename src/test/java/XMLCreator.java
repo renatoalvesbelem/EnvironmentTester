@@ -1,4 +1,5 @@
-import br.com.xml.model.Host;
+import br.com.database.model.HostDatabase;
+import br.com.ssh.model.HostServer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -9,7 +10,7 @@ import java.io.File;
  class XMLCreator {
     public void createXML(Object objectXML) {
 
-        Host hostXML = (Host) objectXML;
+        Object hostXML = (Object) objectXML;
         try {
             File file = new File("d:\\host.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Class.forName(objectXML.getClass().getCanonicalName()));
@@ -20,7 +21,6 @@ import java.io.File;
 
         } catch (JAXBException e) {
             e.printStackTrace();
-
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

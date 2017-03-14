@@ -1,11 +1,11 @@
-package br.com.xml.model;
+package br.com.ssh.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "hostxml")
-public class Host {
+@XmlRootElement(name = "hostserver")
+public class HostServer {
     private String hostName;
     private String name;
     private String password;

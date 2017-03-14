@@ -1,5 +1,6 @@
+import br.com.ssh.model.HostServer;
 import br.com.xml.controller.JaxbController;
-import br.com.xml.model.Host;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,12 +9,12 @@ import org.junit.Test;
 import java.io.File;
 
 public class ComoSistemaSouCapazDeLerXML {
-    private Host createXML, hostXML;
+    private HostServer createXML, hostXML;
     private final String absolutePath = "d://host.xml";
 
     @Before
     public void makeXMLWithValues() {
-        createXML = new Host();
+        createXML = new HostServer();
         createXML.setHostName("192.168.225.140");
         createXML.setName("renato");
         createXML.setPassword("1234564");
@@ -22,7 +23,7 @@ public class ComoSistemaSouCapazDeLerXML {
 
     @Test
     public void readAndInstanceObject() {
-        hostXML = (Host) new JaxbController(new Host(),absolutePath).instanceObjectParsed();
+        hostXML = (HostServer) new JaxbController(new HostServer(),absolutePath).instanceObjectParsed();
     }
 
     @After

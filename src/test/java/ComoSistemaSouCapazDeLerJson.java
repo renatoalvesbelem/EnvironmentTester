@@ -1,5 +1,5 @@
 import br.com.json.controller.JsonController;
-import br.com.xml.model.Host;
+import br.com.ssh.model.HostServer;
 import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,12 +11,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ComoSistemaSouCapazDeLerJson {
-    private Host createJson, hostJSON;
+    private HostServer createJson, hostJSON;
     private final String absolutePath = "d://host.json";
 
     @Before
     public void makeXMLWithValues() throws IOException {
-        createJson = new Host();
+        createJson = new HostServer();
         createJson.setHostName("192.168.225.140");
         createJson.setName("renato");
         createJson.setPassword("1234564");
@@ -29,7 +29,7 @@ public class ComoSistemaSouCapazDeLerJson {
 
     @Test
     public void readAndInstanceObject() {
-        hostJSON = (Host) new JsonController(new Host(), absolutePath).instanceObjectParsed();
+        hostJSON = (HostServer) new JsonController(new HostServer(), absolutePath).instanceObjectParsed();
 
     }
 
