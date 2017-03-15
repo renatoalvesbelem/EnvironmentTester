@@ -20,8 +20,8 @@ public class JsonController {
     public Object instanceObjectParsed() {
         try {
             FileReader fileReader = new FileReader(file);
-            fileReader.close();
             objectXMLFilled = new Gson().fromJson(fileReader, Class.forName(objectJson));
+            fileReader.close();
 
         } catch (IOException e) {
             e.printStackTrace();

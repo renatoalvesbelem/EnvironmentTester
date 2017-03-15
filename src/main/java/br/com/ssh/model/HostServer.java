@@ -1,10 +1,9 @@
 package br.com.ssh.model;
 
-import br.com.database.model.Database;
 import br.com.database.model.HostDatabase;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 
 @XmlRootElement(name = "hostserver")

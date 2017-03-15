@@ -1,6 +1,7 @@
 import br.com.json.controller.JsonController;
 import br.com.ssh.model.HostServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class ComoSistemaSouCapazDeLerJson {
         createJson.setHostName("192.168.225.140");
         createJson.setName("renato");
         createJson.setPassword("1234564");
-        String jsonInString = new Gson().toJson(createJson);
+        String jsonInString = new GsonBuilder().setPrettyPrinting().create().toJson(createJson);
         FileWriter file = new FileWriter(absolutePath, false);
         file.write(jsonInString);
         file.close();

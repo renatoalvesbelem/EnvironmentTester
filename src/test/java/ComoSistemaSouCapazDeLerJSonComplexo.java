@@ -1,25 +1,31 @@
 import br.com.constant.DatabaseType;
 import br.com.database.model.Database;
 import br.com.database.model.HostDatabase;
+import br.com.json.controller.JsonController;
 import br.com.ssh.model.HostServer;
 import br.com.xml.controller.JaxbController;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComoSistemaSouCapazDeLerXMLComplexo {
-    private HostServer createXML, hostXML;
-    private final String absolutePath = "d://host.xml";
-    private HostServer hostServer = new HostServer();
+public class ComoSistemaSouCapazDeLerJSonComplexo {
+    private HostServer createJson, hostJSON;
+    private final String absolutePath = "d://host.json";
     private List<Database> databases;
     private HostDatabase hostDatabase;
+    private HostServer hostServer = new HostServer();
 
     @Before
-    public void makeXMLWithValues() {
+    public void makeXMLWithValues() throws IOException {
+        createJson = new HostServer();
+        hostDatabase = new HostDatabase();
         Database database = new Database();
         database.setDatabaseName("192.168.225.1");
         database.setDatabasePassword("12345678");
@@ -35,20 +41,23 @@ public class ComoSistemaSouCapazDeLerXMLComplexo {
 
         hostDatabase.setDatabaseType(DatabaseType.ORACLE);
         hostDatabase.setDatabaseName(databases);
-        createXML.setDatabase(hostDatabase);
 
-
-hostServer.setDatabase(hostDatabase);
         hostServer.setHostName("192.168.225.0");
         hostServer.setName("renatohost");
         hostServer.setPassword("123");
+        hostServer.setDatabase(hostDatabase);
 
-        new XMLCreator().createXML(hostServer);
+
+
+        String jsonInString = new GsonBuilder().setPrettyPrinting().create().toJson(hostServer);
+        FileWriter file = new FileWriter(absolutePath, false);
+        file.write(jsonInString);
+        file.close();
     }
 
     @Test
     public void readAndInstanceObject() {
-        hostXML = (HostServer) new JaxbController(new HostDatabase(), absolutePath).instanceObjectParsed();
+        hostJSON = (HostServer) new JsonController(new HostServer(), absolutePath).instanceObjectParsed();
     }
 
     @After
